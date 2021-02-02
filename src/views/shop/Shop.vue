@@ -90,6 +90,7 @@ export default {
         color:$content-fontcolor;
       &::placeholder {
         color:$content-fontcolor;
+        
       }
     }
   }
