@@ -6,7 +6,7 @@
     placeholder="请输入手机号"
     class="wrapper__input__content"
     type="text"
-    v-model="username"
+    v-model.trim="username"
     />
   </div>
   <div class="wrapper__input">
@@ -14,7 +14,7 @@
     placeholder="请输入密码"
     class="wrapper__input__content"
     type="password"
-    v-model="password"
+    v-model.trim="password"
     />
   </div>
   <div class="wrapper__login-button" @click="handleLogin">登录</div>
@@ -34,6 +34,14 @@ const useLoginEffect = (showToast) => {
   const data = reactive({ username: '', password: '' })
   const handleLogin = async () => {
     try {
+      const { username, password } = data
+      if (!username) {
+        showToast('账号不能为空')
+        return false
+      } else if (!password) {
+        showToast('密码不能为空')
+        return false
+      }
       const result = await post('/api/user/login', {
         username: data.username,
         passwotd: data.password

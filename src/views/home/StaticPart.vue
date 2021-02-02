@@ -6,7 +6,7 @@
     <span class="iconfont position__notice">&#xe613;</span>
   </div>
   <div class="search">
-    <span class="iconfont">&#xe689;</span>
+    <span class="iconfont">&#xe600;</span>
     <span class="search__text">这是一段文案</span>
   </div>
   <div class="banner">
@@ -75,15 +75,16 @@ export default {
   margin-bottom: .12rem;
   vertical-align: middle;
   line-height: .32rem;
-  background-color: #f5f5f5;
-  color: #b7b7b7;
+  background-color:$search-bgColor;
+  color:$search-fontColor ;
   border-radius: .16rem;
   .iconfont {
     position: relative;
     top: 0.01rem;
     display: inline-block;
     padding: 0 .12rem 0 .16rem;
-    font-size: .2rem;
+    font-size: .16rem;
+    color: $search-fontColor;
   }
   &__text {
     display: inline-block;

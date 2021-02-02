@@ -38,7 +38,11 @@ import Toast, { useToastEffect } from '../../components/Toast'
 
 const useRegisterEffect = (showToast) => {
   const router = useRouter()
-  const data = reactive({ username: '', password: '', ensurement: '' })
+  const data = reactive({
+    username: '',
+    password: '',
+    ensurement: ''
+  })
   const handleRegister = async () => {
     try {
       const result = await post('/api/user/register', {
@@ -58,17 +62,21 @@ const useRegisterEffect = (showToast) => {
   const { username, password, ensurement } = toRefs(data)
   return { username, password, ensurement, handleRegister }
 }
+const useLoginClick = () => {
+  const router = useRouter()
+  const handleLoginClick = () => {
+    router.push({ name: 'Login' })
+  }
+  return { handleLoginClick }
+}
 
 export default {
   name: 'register',
   components: { Toast },
   setup () {
-    const router = useRouter()
     const { show, toactMessage, showToast } = useToastEffect()
     const { username, password, ensurement, handleRegister } = useRegisterEffect(showToast)
-    const handleLoginClick = () => {
-      router.push({ name: 'Login' })
-    }
+    const { handleLoginClick } = useLoginClick()
     return {
       handleLoginClick,
       username,
