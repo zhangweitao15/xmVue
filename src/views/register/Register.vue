@@ -128,11 +128,11 @@ export default {
   &__regoster-button {
     margin: .32rem .4rem 0;
     line-height: .48rem;
-    background-color: #0091ff;
+    background-color: $btnColor;
     box-shadow: 0 0.04rem 0.08rem 0 rgba(0,145,255,0.32);
     border-radius: 0.04rem;
     border-radius: 0.04rem;
-    color: #fff;
+    color:$bgColor;
     font-size: .16rem;
     text-align: center;
   }

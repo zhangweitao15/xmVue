@@ -13,41 +13,48 @@
         class="search__content__input" />
       </div>
     </div>
-    <Shopinfo :item="data.item" :hideBorder="true" />
+    <Shopinfo :item="item" :hideBorder="true" v-show="item.imgUrl" />
+    <Content :shopName="item.name" />
+    <Cart />
   </div>
 </template>
 
 <script>
-import { reactive } from 'vue'
-import { useRouter } from 'vue-router'
+import { reactive, toRefs } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { get } from '../../utils/request'
 import Shopinfo from '../../components/Shopinfo'
+import Content from '../../views/shop/Content'
+import Cart from '../../views/shop/Cart'
+
 const useBack = () => {
-  const rouster = useRouter()
+  const router = useRouter()
   const handleBackCLick = () => {
-    rouster.back()
+    router.back()
   }
   return { handleBackCLick }
 }
 const useGetMsg = () => {
   const data = reactive({ item: {} })
+  const route = useRoute()
   const getItemData = async () => {
-    const result = await get('/api/shop/1')
+    const result = await get(`/api/shop/${route.params.id}`)
     if (result?.errno === 0 && result?.data) {
       data.item = result.data
     }
   }
-  return { getItemData, data }
+  const { item } = toRefs(data)
+  return { getItemData, item }
 }
 export default {
   name: 'Shop',
-  components: { Shopinfo },
+  components: { Shopinfo, Content, Cart },
   setup () {
     const { handleBackCLick } = useBack()
-    const { getItemData, data } = useGetMsg()
+    const { getItemData, item } = useGetMsg()
     getItemData()
 
-    return { data, handleBackCLick }
+    return { item, handleBackCLick }
   }
 }
 </script>
@@ -90,7 +97,6 @@ export default {
         color:$content-fontcolor;
       &::placeholder {
         color:$content-fontcolor;
-        
       }
     }
   }
